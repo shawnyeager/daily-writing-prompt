@@ -10,7 +10,7 @@
             padding: 0;
             box-sizing: border-box;
         }
-
+        
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -20,7 +20,7 @@
             justify-content: center;
             padding: 20px;
         }
-
+        
         .container {
             background: white;
             border-radius: 20px;
@@ -29,7 +29,7 @@
             width: 100%;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
         }
-
+        
         .date {
             color: #667eea;
             font-size: 14px;
@@ -38,13 +38,13 @@
             letter-spacing: 1px;
             margin-bottom: 10px;
         }
-
+        
         .prompt-number {
             color: #999;
             font-size: 13px;
             margin-bottom: 20px;
         }
-
+        
         .prompt {
             font-size: 24px;
             line-height: 1.5;
@@ -52,7 +52,7 @@
             margin-bottom: 30px;
             font-weight: 500;
         }
-
+        
         .category {
             display: inline-block;
             background: #f7fafc;
@@ -65,13 +65,13 @@
             letter-spacing: 0.5px;
             margin-bottom: 30px;
         }
-
+        
         .buttons {
             display: flex;
             gap: 10px;
             flex-wrap: wrap;
         }
-
+        
         button {
             background: #667eea;
             color: white;
@@ -83,26 +83,26 @@
             cursor: pointer;
             transition: all 0.2s;
         }
-
+        
         button:hover {
             background: #5568d3;
             transform: translateY(-1px);
             box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
         }
-
+        
         button:active {
             transform: translateY(0);
         }
-
+        
         button.secondary {
             background: #e2e8f0;
             color: #4a5568;
         }
-
+        
         button.secondary:hover {
             background: #cbd5e0;
         }
-
+        
         .copied {
             position: fixed;
             top: 20px;
@@ -115,7 +115,7 @@
             animation: slideIn 0.3s ease;
             box-shadow: 0 4px 12px rgba(72, 187, 120, 0.4);
         }
-
+        
         @keyframes slideIn {
             from {
                 transform: translateX(400px);
@@ -144,335 +144,371 @@
 
     <script>
         // Easy-to-edit format: Category | Prompt text
-        const promptData = `
-Ideas & Innovation | What existing technology is misapplied?
-Resource Allocation | What does society spend too much money on?
-Technology & Progress | What technology makes you genuinely uneasy?
-Success & Failure | What does society call success that isn't?
-Ideas Worth Reconsidering | What old or ancient idea do you think is super good, actually, and should be brought back into fashion?
-Communication & Persuasion | What makes communication effective vs. just frequent?
-Personal Philosophy | What principle do you try to live by that most people don't?
-Predictions & Future | What technology that doesn't exist yet will most change daily life by 2035?
-Money & Economics | What do wealthy people know that others don't?
-Health & Mortality | What health advice is everyone ignoring?
-Contrarian Thinking | What consensus view is probably wrong?
-Relationships & Community | What makes a friendship last decades?
-Learning & Growth | What's the most effective way you've learned something difficult?
-Attention & Focus | What deserves your attention that isn't getting it?
-Ideas & Innovation | What field would benefit from ideas from another field?
-Work & Career | What career advice is universally given but wrong?
-Ethics & Morality | What's something legal that should be illegal?
-Values & Priorities | What's something you value that can't be bought?
-Predictions & Future | Which current social norm do you think will seem barbaric in 50 years?
-Decision-Making | What's the best decision you made that felt wrong at the time?
-Society & Culture | What widely accepted practice is actually harmful?
-Comparative Analysis | What's better now than 20 years ago that no one acknowledges?
-Personal Experience | What's the hardest lesson you've learned?
-Information & Knowledge | What should everyone know that almost no one does?
-Ideas Worth Reconsidering | What 'outdated' technology was actually better than what replaced it?
-Resource Allocation | What critical area is chronically underfunded?
-Self-Analysis | What do you procrastinate on that you claim is important?
-Meta-Questions | What question should people ask themselves more often?
-Communication & Persuasion | When should you explain yourself vs. let it go?
-Personal Philosophy | When is it acceptable to break a promise?
-Historical Analysis | What historical event is widely misunderstood?
-Risk & Uncertainty | What risk do most people overestimate?
-Trade-offs & Paradoxes | What gets worse when you try to optimize it?
+        const promptData = `Ideas & Innovation | What existing technology is misapplied?
 Money & Economics | When is saving money more expensive in the long run?
-Predictions & Future | Predict three ways climate change will alter your local area in the next 20 years.
-Systems Thinking | What problem is actually caused by its attempted solutions?
-Power & Influence | What gives someone power that isn't obvious?
-Success & Failure | When is failure actually success?
-Ideas & Innovation | What innovation is blocked only by regulation?
-Learning & Growth | What skill did you learn too late?
-Changing Your Mind | What is the most significant thing you have changed your mind about in the past 12 months?
-Decision-Making | What's the worst advice you've followed?
-Identity & Self | What parts of your identity are chosen vs. given?
-Attention & Focus | How do you decide what to ignore?
-Technology & Progress | What problem can't be solved by technology?
-Work & Career | What skill will be most valuable in 10 years?
-Justice & Fairness | What's the difference between fairness and equality?
-Predictions & Future | What will people be nostalgic for in 2040 that we take for granted today?
-Relationships & Community | When should you cut someone out of your life?
-Ethics & Morality | What's something illegal that should be legal?
-Contrarian Thinking | What does everyone worry about that doesn't matter?
-Ideas Worth Reconsidering | What traditional practice did we abandon too quickly?
-Resource Allocation | How would you allocate $1 billion to improve the world?
-Self-Analysis | What compliment do you reject that might actually be true?
-Values & Priorities | What principle would you break if the stakes were high enough?
-Personal Experience | What experience changed your priorities?
-Communication & Persuasion | What's the difference between being heard and being understood?
-Information & Knowledge | What's taught in school that's useless?
-Personal Philosophy | What's more important: being right or being kind?
-Historical Analysis | What lesson from history keeps being ignored?
-Risk & Uncertainty | What risk do most people underestimate?
-Trade-offs & Paradoxes | What's a necessary evil in your field?
-Money & Economics | What economic principle do most people misunderstand?
-Predictions & Future | Which scientific breakthrough do you expect to see before you die?
-Systems Thinking | What perverse incentive shapes your industry?
-Power & Influence | When does having power corrupt judgment?
-Success & Failure | What's the worst thing about achieving your goals?
-Ideas & Innovation | What problem has an obvious solution no one implements?
-Learning & Growth | When does reading more books not make you smarter?
-Changing Your Mind | What belief did you hold at age 20 that you now find embarrassing?
-Decision-Making | How much of your current life is the result of decisions vs. circumstances?
-Identity & Self | How much of your personality is performance?
-Attention & Focus | What's the cost of being constantly informed?
-Technology & Progress | When does convenience become detrimental?
-Work & Career | When should you stay at a job vs. leave?
-Justice & Fairness | When is punishment ineffective?
-Predictions & Future | How will the concept of 'work' be different for your grandchildren?
-Relationships & Community | What relationship advice sounds good but is terrible?
-Ethics & Morality | When is lying the right choice?
-Contrarian Thinking | What obvious solution are we overlooking?
-Ideas Worth Reconsidering | What advice from previous generations should we take more seriously?
-Resource Allocation | What gets too much attention relative to its importance?
-Self-Analysis | What are you better at than you give yourself credit for?
-Values & Priorities | What do you spend money on that reveals what you actually care about?
-Personal Experience | What did you think would make you happy that didn't?
-Communication & Persuasion | How do you know if someone is really listening?
-Information & Knowledge | What's not taught that should be?
-Personal Philosophy | How do you decide what deserves your attention?
-Historical Analysis | Which historical figure's reputation is undeserved?
-Risk & Uncertainty | When is playing it safe the riskiest choice?
-Trade-offs & Paradoxes | When does more choice make things worse?
-Money & Economics | How much money is enough?
-Predictions & Future | Which country or region will become unexpectedly influential in the next 30 years?
-Systems Thinking | What system is designed to fail but keeps getting funded?
-Power & Influence | How do you influence people without authority?
-Success & Failure | How much of success is timing?
-Ideas & Innovation | What combination of existing things would create something valuable?
-Learning & Growth | What's the difference between knowledge and understanding?
-Changing Your Mind | Describe a time you were completely wrong about someone.
-Decision-Making | When should you trust your gut over analysis?
-Identity & Self | What story do you tell yourself about yourself?
-Attention & Focus | When does multitasking work and when doesn't it?
-Technology & Progress | What have we lost by being constantly connected?
-Work & Career | What makes someone actually good at their job vs. appearing good?
-Justice & Fairness | What injustice do people accept too easily?
-Predictions & Future | What industry will be unrecognizable in a decade?
-Relationships & Community | How much do you owe your family vs. yourself?
-Ethics & Morality | How many people would need to benefit to justify one person's suffering?
-Contrarian Thinking | What's the most overrated virtue?
-Ideas Worth Reconsidering | What historical approach to a problem was superior to modern methods?
-Resource Allocation | What deserves more research funding?
-Self-Analysis | What's your most irrational fear?
-Values & Priorities | When was the last time your actions contradicted your stated values?
-Personal Experience | What advice do you wish you could give your younger self?
-Communication & Persuasion | What makes a message memorable?
-Information & Knowledge | What common knowledge is actually false?
-Personal Philosophy | What's your theory on what makes a life well-lived?
-Historical Analysis | What modern problem has an ancient precedent?
-Risk & Uncertainty | How do you make decisions with incomplete information?
-Trade-offs & Paradoxes | What trade-off do people not realize they're making?
-Money & Economics | What purchase improved your life the most?
-Predictions & Future | What problem will we solve that we think is unsolvable?
-Systems Thinking | What feedback loop is spiraling in the wrong direction?
-Power & Influence | What makes propaganda effective?
-Success & Failure | What successful person do you not want to emulate?
-Ideas & Innovation | What question is no one asking?
-Learning & Growth | How do you know when you've mastered something?
-Changing Your Mind | What opinion do you hold now that you would have argued against five years ago?
-Decision-Making | What's the most expensive mistake you've learned from?
-Identity & Self | When does your identity limit you?
-Attention & Focus | What consistently distracts you from what matters?
-Technology & Progress | What low-tech solution is better than high-tech alternatives?
-Work & Career | What do successful people do that they don't talk about?
-Justice & Fairness | How do you balance mercy and justice?
-Predictions & Future | What will be the next major global crisis?
-Relationships & Community | What makes someone trustworthy?
-Ethics & Morality | What do you owe to people you'll never meet?
-Contrarian Thinking | What problem would disappear if we just stopped talking about it?
-Ideas Worth Reconsidering | What 'primitive' skill would be valuable to relearn?
-Resource Allocation | Where is efficiency actually counterproductive?
-Self-Analysis | What personality trait causes you the most problems?
-Values & Priorities | What's something you claim to care about but don't act on?
-Personal Experience | What's the most valuable thing you learned outside school?
-Communication & Persuasion | When does more information make communication worse?
-Information & Knowledge | What complex topic could be explained more simply?
-Personal Philosophy | When should you prioritize your own needs over others'?
-Historical Analysis | What historical solution to a problem should we revisit?
-Risk & Uncertainty | What's the difference between risk and uncertainty?
-Trade-offs & Paradoxes | When is the best option not the optimal one?
-Money & Economics | When should you spend money to save time?
-Predictions & Future | What strongly-held belief have you completely reversed?
-Systems Thinking | What externality should be priced in?
-Power & Influence | When should you use your influence?
-Success & Failure | When does success in one area guarantee failure in another?
-Ideas & Innovation | What's possible now that wasn't five years ago?
-Learning & Growth | What failure taught you more than any success?
-Changing Your Mind | When was the last time you changed your mind about a political issue?
-Decision-Making | What decision do you keep delaying?
-Identity & Self | How have you changed in ways you didn't expect?
-Attention & Focus | How has your attention span changed?
-Technology & Progress | What should we stop trying to automate?
-Work & Career | What career risk did you not take that you regret?
-Justice & Fairness | What's fair in theory but unfair in practice?
-Predictions & Future | What evidence would change your mind on a core belief?
-Relationships & Community | When is conflict healthier than harmony?
-Ethics & Morality | Is it worse to do harm or to allow harm to happen?
-Contrarian Thinking | What's getting better that everyone thinks is getting worse?
-Ideas Worth Reconsidering | What social ritual or custom should we revive?
-Resource Allocation | What's worth spending time on that doesn't seem productive?
-Self-Analysis | When do you feel like an imposter?
-Values & Priorities | What would you risk your reputation to defend?
-Personal Experience | What life event divided your life into 'before' and 'after'?
-Communication & Persuasion | What's the most persuasive argument you've encountered?
-Information & Knowledge | What's the most important thing you learned in the past year?
-Personal Philosophy | What's the difference between confidence and arrogance?
-Historical Analysis | When did society make the wrong turn on a major issue?
-Risk & Uncertainty | When should you trust expert predictions?
-Trade-offs & Paradoxes | What improves with constraints?
-Money & Economics | What financial advice sounds responsible but isn't?
-Predictions & Future | When did you realize you were the bad guy in someone's story?
-Systems Thinking | What rule creates the opposite of its intended effect?
-Power & Influence | What's the difference between leadership and management?
-Success & Failure | What metric of success is misleading?
-Ideas & Innovation | What would improve if we did less, not more?
-Learning & Growth | What mental model changed how you see everything?
-Changing Your Mind | What fact or statistic most changed your worldview?
-Decision-Making | How do you decide when to quit vs. persevere?
-Identity & Self | What do you want to be known for?
-Attention & Focus | When should you deep focus vs. stay broadly aware?
-Technology & Progress | How has technology changed you for the worse?
-Work & Career | How much of career success is skill vs. luck vs. politics?
-Justice & Fairness | When does seeking justice become revenge?
-Predictions & Future | What made you question something you were taught as a child?
-Relationships & Community | What trait in others bothers you because you have it too?
-Ethics & Morality | What's the difference between justice and revenge?
-Contrarian Thinking | What trade-off is worth it that most people reject?
-Ideas Worth Reconsidering | What ancient philosophy is underrated today?
-Resource Allocation | What luxury is actually a necessity?
-Self-Analysis | What do you judge others for that you're guilty of yourself?
-Values & Priorities | What's more important: freedom or security?
-Personal Experience | What discomfort are you grateful you endured?
+Self-Analysis | What lie do you tell yourself?
+Resource Allocation | What does society spend too much money on?
 Communication & Persuasion | How do you communicate bad news effectively?
-Information & Knowledge | What knowledge has become obsolete in your lifetime?
-Personal Philosophy | How much should your past define your present?
-Historical Analysis | What historical trend reversed that people didn't expect?
-Risk & Uncertainty | What calculated risk paid off for you?
-Trade-offs & Paradoxes | When is good enough better than perfect?
-Money & Economics | How does having money change people?
-Predictions & Future | What "solved" problem should we reconsider?
-Systems Thinking | What problem can't be solved by the system that created it?
-Power & Influence | How do you hold powerful people accountable?
+Predictions & Future | Predict three ways climate change will alter your local area in the next 20 years.
+Money & Economics | What purchase improved your life the most?
+Information & Knowledge | What's obvious to you that others don't see?
 Success & Failure | How do you define success for yourself?
-Ideas & Innovation | What constraint actually makes things better?
-Learning & Growth | When should you be a generalist vs. a specialist?
-Changing Your Mind | What book or conversation most altered your thinking?
-Decision-Making | What choice would you make differently if you had no ego?
-Identity & Self | What's the gap between how you see yourself and how others see you?
-Attention & Focus | What are you avoiding by staying busy?
-Technology & Progress | What data should never be collected?
-Work & Career | What's the most important thing they don't teach in your field?
-Justice & Fairness | How should society handle people who can't follow rules?
-Predictions & Future | What collective wisdom have we lost?
-Relationships & Community | How do you know when to forgive?
-Ethics & Morality | When does loyalty become a vice?
-Contrarian Thinking | What unpopular policy would actually work?
-Ideas Worth Reconsidering | What pre-digital practice made life better?
-Resource Allocation | What investment would pay off in 50 years but not 5?
-Self-Analysis | What's a hard truth about yourself you've recently accepted?
-Values & Priorities | If you could only teach one value to the next generation, what would it be?
-Personal Experience | What success taught you less than a failure?
-Communication & Persuasion | When is silence more powerful than words?
-Information & Knowledge | What do experts overcomplicate?
-Personal Philosophy | What makes something 'your responsibility'?
-Historical Analysis | What historical myth shapes current policy?
-Risk & Uncertainty | How do you know when you're being paranoid vs. prudent?
-Trade-offs & Paradoxes | What strength becomes a weakness in excess?
-Money & Economics | What's worth going into debt for?
-Predictions & Future | What tradition contains useful knowledge we've forgotten?
-Systems Thinking | What metric ruins what it measures?
-Power & Influence | What kind of power is most dangerous?
-Success & Failure | What's the cost of success no one talks about?
-Ideas & Innovation | What established way of doing things is ready for disruption?
-Learning & Growth | How do you identify your blind spots?
-Changing Your Mind | What's an opinion you publicly defended that you privately doubted?
-Decision-Making | When is the 'sunk cost fallacy' actually wisdom?
-Identity & Self | When is self-awareness counterproductive?
-Attention & Focus | How do you know what's signal vs. noise?
-Technology & Progress | When is 'progress' actually regression?
-Work & Career | When does specialization hurt more than it helps?
-Justice & Fairness | What's the difference between deserving and needing?
-Predictions & Future | What ancient warning are we ignoring?
-Relationships & Community | What's the difference between loneliness and solitude?
-Ethics & Morality | What moral principle do most people claim but don't follow?
-Contrarian Thinking | What does everyone know that isn't true?
-Ideas Worth Reconsidering | What principle guides you that you never articulate?
-Resource Allocation | What's the highest-value use of your next hour?
-Self-Analysis | When do you break your own rules?
-Values & Priorities | What do your daily actions reveal you value vs. what you claim?
-Personal Experience | What conversation do you think about years later?
-Communication & Persuasion | What's being said when nothing is being said?
-Information & Knowledge | What's the difference between being informed and being educated?
-Personal Philosophy | What's your theory of human nature?
-Historical Analysis | What can we learn from a civilization that collapsed?
-Risk & Uncertainty | What do you wish you'd been more afraid of?
-Trade-offs & Paradoxes | When does solving one problem create a bigger one?
-Money & Economics | What economic principle do most people misunderstand?
-Predictions & Future | What's worth suffering for?
-Systems Thinking | What competition creates worse outcomes than cooperation would?
-Power & Influence | What's the difference between persuasion and manipulation?
-Success & Failure | When should you celebrate small wins vs. focus on the big picture?
+Conflict Resolution | How do you disagree without being disagreeable?
+Comparative Analysis | Which generates better outcomes: rules or principles?
 Ideas & Innovation | What needs to be uninvented?
-Learning & Growth | What's something you thought you understood but didn't?
-Changing Your Mind | What value conflicts with another value you hold?
-Decision-Making | What's negotiable vs. non-negotiable for you?
-Identity & Self | When did you violate your values and felt right about it?
-Attention & Focus | What pattern do you keep repeating?
-Technology & Progress | What lie do you tell yourself?
-Work & Career | What would people be surprised to learn motivates you?
-Justice & Fairness | What's your greatest strength that's also your greatest weakness?
-Predictions & Future | What are you running from?
-Relationships & Community | What decision framework do you use?
-Ethics & Morality | When should you decide quickly vs. slowly?
-Contrarian Thinking | What biases affect your decisions most?
-Ideas Worth Reconsidering | How do you make decisions when values conflict?
-Resource Allocation | What's normalized that shouldn't be?
-Self-Analysis | What's taboo that shouldn't be?
-Values & Priorities | What do we collectively pretend?
-Personal Experience | What old problem has technology made worse?
-Communication & Persuasion | What should humans do that machines shouldn't?
-Information & Knowledge | When does optimization dehumanize?
-Personal Philosophy | What technology do we need less of, not more?
-Historical Analysis | What's your line that others cross easily?
-Risk & Uncertainty | When is pragmatism immoral?
-Trade-offs & Paradoxes | What moral rule has an exception for you?
-Money & Economics | What's the hardest ethical choice you've made?
-Predictions & Future | What conventional wisdom needs questioning?
-Systems Thinking | What's obvious but no one says?
-Power & Influence | What's taboo to question but should be questioned?
-Success & Failure | What problem exists because we're trying to solve it?
-Ideas & Innovation | What's gotten worse while improving?
-Learning & Growth | What inefficiency is actually valuable?
-Changing Your Mind | Which generates better outcomes: rules or principles?
-Decision-Making | What's the difference between being busy and being productive?
-Identity & Self | What's overvalued in terms of time investment?
-Attention & Focus | What deserves funding that can't be monetized?
-Technology & Progress | Where should we spend more money to save money?
-Work & Career | What gets measured that shouldn't be?
-Justice & Fairness | What second-order effect do people miss?
-Predictions & Future | What unintended consequence was entirely predictable?
-Relationships & Community | What system optimizes for the wrong thing?
-Ethics & Morality | What problem is downstream from another problem?
-Contrarian Thinking | What intervention would have the highest leverage?
-Ideas Worth Reconsidering | What belief has experience contradicted?
-Resource Allocation | What comfort zone expansion changed you?
-Self-Analysis | What random event had the biggest impact on your life?
-Values & Priorities | What do you know now that you wish you'd known earlier?
-Personal Experience | What breakthrough is one connection away?
-Communication & Persuasion | What's ripe for disruption but isn't being disrupted?
-Information & Knowledge | What solution creates a new problem worth solving?
-Personal Philosophy | What's the most dangerous knowledge?
-Historical Analysis | What's obvious to you that others don't see?
-Risk & Uncertainty | What knowledge is most resistant to being taught?
-Trade-offs & Paradoxes | What gets lost between theory and practice?
-Money & Economics | What question do you avoid asking yourself?
-Predictions & Future | What's the most important unanswered question?
-Systems Thinking | What question has no good answer?
-Power & Influence | What question matters more than people realize?
-        `;
+Ideas Worth Reconsidering | What advice from previous generations should we take more seriously?
+Values & Priorities | What do you spend money on that reveals what you actually care about?
+Communication & Persuasion | When is silence more powerful than words?
+Decision-Making | When should you decide quickly vs. slowly?
+Contrarian Thinking | What does everyone worry about that doesn't matter?
+Personal Philosophy | What's the difference between confidence and arrogance?
+Ideas Worth Reconsidering | What collective wisdom have we lost?
+Communication & Persuasion | What makes a message memorable?
+Attention & Focus | What are you avoiding by staying busy?
+Predictions & Future | Which country or region will become unexpectedly influential in the next 30 years?
+Money & Economics | What's worth going into debt for?
+Trade-offs & Paradoxes | What gets worse when you try to optimize it?
+Comparative Analysis | What's the difference between popularity and quality?
+Predictions & Future | What industry will be unrecognizable in a decade?
+Ideas Worth Reconsidering | What old or ancient idea do you think is super good, actually, and should be brought back into fashion?
+Money & Economics | When should you spend money to save time?
+Ideas & Innovation | What's possible now that wasn't five years ago?
+Resource Allocation | What gets measured that shouldn't be?
+Ethics & Morality | When does loyalty become a vice?
+Work & Career | When should you stay at a job vs. leave?
+Learning & Growth | What mental model changed how you see everything?
+Information & Knowledge | What knowledge has become obsolete in your lifetime?
+Resource Allocation | What deserves funding that can't be monetized?
+Ideas & Innovation | What's ripe for disruption but isn't being disrupted?
+Work & Career | What skill will be most valuable in 10 years?
+Meta-Questions | What question reveals someone's true priorities?
+Personal Philosophy | What's your theory on what makes a life well-lived?
+Ideas Worth Reconsidering | What "solved" problem should we reconsider?
+Ideas & Innovation | What problem has an obvious solution no one implements?
+Values & Priorities | If you could only teach one value to the next generation, what would it be?
+Predictions & Future | What will be the next major global crisis?
+Values & Priorities | When did you violate your values and felt right about it?
+Conflict Resolution | When should you apologize even if you're right?
+Success & Failure | What successful person do you not want to emulate?
+Ideas & Innovation | What breakthrough is one connection away?
+Ideas Worth Reconsidering | What pre-digital practice made life better?
+Work & Career | How much of career success is skill vs. luck vs. politics?
+Ideas & Innovation | What established way of doing things is ready for disruption?
+Resource Allocation | What's overvalued in terms of time investment?
+Systems Thinking | What unintended consequence was entirely predictable?
+Relationships & Community | What trait in others bothers you because you have it too?
+Learning & Growth | What's the difference between knowledge and understanding?
+Ideas Worth Reconsidering | What traditional practice did we abandon too quickly?
+Decision-Making | What decision do you keep delaying?
+Information & Knowledge | What knowledge is most resistant to being taught?
+Relationships & Community | What makes a friendship last decades?
+Self-Analysis | What would people be surprised to learn motivates you?
+Success & Failure | How much of success is timing?
+Ideas Worth Reconsidering | What tradition contains useful knowledge we've forgotten?
+Communication & Persuasion | When should you explain yourself vs. let it go?
+Values & Priorities | What would you risk your reputation to defend?
+Information & Knowledge | What's taught in school that's useless?
+Attention & Focus | What's the cost of being constantly informed?
+Self-Analysis | What are you running from?
+Resource Allocation | What's worth spending time on that doesn't seem productive?
+Communication & Persuasion | What's the difference between being heard and being understood?
+Ideas & Innovation | What field would benefit from ideas from another field?
+Comparative Analysis | What's the difference between being busy and being productive?
+Learning & Growth | When does reading more books not make you smarter?
+Personal Philosophy | What principle guides you that you never articulate?
+Justice & Fairness | How should society handle people who can't follow rules?
+Success & Failure | What's the cost of success no one talks about?
+Information & Knowledge | What should everyone know that almost no one does?
+Ideas & Innovation | What constraint actually makes things better?
+Values & Priorities | What's negotiable vs. non-negotiable for you?
+Learning & Growth | How do you know when you've mastered something?
+Decision-Making | What decision framework do you use?
+Technology & Progress | What problem can't be solved by technology?
+Work & Career | When does specialization hurt more than it helps?
+Communication & Persuasion | When does more information make communication worse?
+Information & Knowledge | What gets lost between theory and practice?
+Relationships & Community | When should you cut someone out of your life?
+Information & Knowledge | What complex topic could be explained more simply?
+Decision-Making | What biases affect your decisions most?
+Meta-Questions | What paradox do you think about?
+Values & Priorities | What's something you value that can't be bought?
+Ideas Worth Reconsidering | What 'primitive' skill would be valuable to relearn?
+Learning & Growth | What's the most effective way you've learned something difficult?
+Attention & Focus | When does multitasking work and when doesn't it?
+Predictions & Future | Which current social norm do you think will seem barbaric in 50 years?
+Success & Failure | What's the worst thing about achieving your goals?
+Conflict Resolution | When is compromise worse than either alternative?
+Relationships & Community | What's the difference between loneliness and solitude?
+Ideas Worth Reconsidering | What historical approach to a problem was superior to modern methods?
+Information & Knowledge | What do experts overcomplicate?
+Decision-Making | When should you trust your gut over analysis?
+Learning & Growth | How do you identify your blind spots?
+Success & Failure | What metric of success is misleading?
+Ethics & Morality | What's the hardest ethical choice you've made?
+Money & Economics | What economic principle do most people misunderstand?
+Predictions & Future | How will the concept of 'work' be different for your grandchildren?
+Ideas Worth Reconsidering | What social ritual or custom should we revive?
+Resource Allocation | How would you allocate $1 billion to improve the world?
+Information & Knowledge | What's the difference between being informed and being educated?
+Money & Economics | What do wealthy people know that others don't?
+Power & Influence | What makes propaganda effective?
+Money & Economics | What financial advice sounds responsible but isn't?
+Information & Knowledge | What common knowledge is actually false?
+Ideas & Innovation | What solution creates a new problem worth solving?
+Values & Priorities | When was the last time your actions contradicted your stated values?
+Learning & Growth | When should you be a generalist vs. a specialist?
+Decision-Making | What's the best decision you made that felt wrong at the time?
+Risk & Uncertainty | How do you know when you're being paranoid vs. prudent?
+Personal Philosophy | What's more important: being right or being kind?
+Ideas & Innovation | What question is no one asking?
+Communication & Persuasion | How do you know if someone is really listening?
+Attention & Focus | How do you decide what to ignore?
+Information & Knowledge | What's the most dangerous knowledge?
+Decision-Making | What choice would you make differently if you had no ego?
+Historical Analysis | What historical solution to a problem should we revisit?
+Values & Priorities | What value conflicts with another value you hold?
+Ideas Worth Reconsidering | What 'outdated' technology was actually better than what replaced it?
+Predictions & Future | What problem will we solve that we think is unsolvable?
+Work & Career | What career advice is universally given but wrong?
+Information & Knowledge | What's the most important thing you learned in the past year?
+Work & Career | What career risk did you not take that you regret?
+Changing Your Mind | What strongly-held belief have you completely reversed?
+Success & Failure | What does society call success that isn't?
+Predictions & Future | What will people be nostalgic for in 2040 that we take for granted today?
+Learning & Growth | What failure taught you more than any success?
+Success & Failure | When is failure actually success?
+Predictions & Future | What technology that doesn't exist yet will most change daily life by 2035?
+Comparative Analysis | Compare an expert's view of your field vs. a layperson's.
+Systems Thinking | What problem is actually caused by its attempted solutions?
+Personal Philosophy | What principle do you try to live by that most people don't?
+Ideas Worth Reconsidering | What ancient warning are we ignoring?
+Learning & Growth | What skill did you learn too late?
+Money & Economics | How much money is enough?
+Ideas Worth Reconsidering | What ancient philosophy is underrated today?
+Values & Priorities | What do your daily actions reveal you value vs. what you claim?
+Personal Experience | What advice do you wish you could give your younger self?
+Personal Philosophy | What's your theory of human nature?
+Ideas & Innovation | What innovation is blocked only by regulation?
+Information & Knowledge | What's not taught that should be?
+Comparative Analysis | What does your industry/field do wrong that another does right?
+Communication & Persuasion | What's the most persuasive argument you've encountered?
+Resource Allocation | Where is efficiency actually counterproductive?
+Identity & Self | How much of your personality is performance?
+Money & Economics | How does having money change people?
+Ideas & Innovation | What would improve if we did less, not more?
+Communication & Persuasion | What makes communication effective vs. just frequent?
+Resource Allocation | What critical area is chronically underfunded?
+Predictions & Future | Which scientific breakthrough do you expect to see before you die?
+Personal Philosophy | When is it acceptable to break a promise?
+Historical Analysis | What historical myth shapes current policy?
+Decision-Making | When is the 'sunk cost fallacy' actually wisdom?
+Conflict Resolution | What's the best way to change someone's mind?
+Self-Analysis | What do you procrastinate on that you claim is important?
+Attention & Focus | What deserves your attention that isn't getting it?
+Changing Your Mind | What opinion do you hold now that you would have argued against five years ago?
+Comparative Analysis | What looks like a problem but is actually a symptom?
+Historical Analysis | What can we learn from a civilization that collapsed?
+Attention & Focus | How do you know what's signal vs. noise?
+Justice & Fairness | When does seeking justice become revenge?
+Technology & Progress | When does optimization dehumanize?
+Resource Allocation | Where should we spend more money to save money?
+Systems Thinking | What system optimizes for the wrong thing?
+Comparative Analysis | What does the past do better than the present?
+Self-Analysis | What's your most irrational fear?
+Decision-Making | How do you make decisions when values conflict?
+Contrarian Thinking | What's taboo to question but should be questioned?
+Conflict Resolution | What's the difference between debate and discussion?
+Personal Philosophy | How much should your past define your present?
+Society & Culture | What do we collectively pretend?
+Comparative Analysis | When is quick and imperfect better than slow and perfect?
+Health & Mortality | When is medical intervention doing more harm than good?
+Decision-Making | How do you decide when to quit vs. persevere?
+Power & Influence | How do you influence people without authority?
+Values & Priorities | What principle would you break if the stakes were high enough?
+Success & Failure | When does success in one area guarantee failure in another?
+Meta-Questions | What topic do you wish people debated more?
+Relationships & Community | How much do you owe your family vs. yourself?
+Identity & Self | What's the gap between how you see yourself and how others see you?
+Comparative Analysis | Which is more effective: punishment or reward?
+Contrarian Thinking | What's obvious but no one says?
+Systems Thinking | What system is designed to fail but keeps getting funded?
+Resource Allocation | What's the highest-value use of your next hour?
+Justice & Fairness | How do you balance mercy and justice?
+Relationships & Community | When is conflict healthier than harmony?
+Society & Culture | What norm exists only because everyone assumes everyone else wants it?
+Personal Philosophy | When should you prioritize your own needs over others'?
+Changing Your Mind | What book or conversation most altered your thinking?
+Resource Allocation | What investment would pay off in 50 years but not 5?
+Relationships & Community | What relationship advice sounds good but is terrible?
+Power & Influence | What kind of power is most dangerous?
+Decision-Making | How much of your current life is the result of decisions vs. circumstances?
+Self-Analysis | What are you better at than you give yourself credit for?
+Comparative Analysis | What's gotten worse while improving?
+Meta-Questions | What's a false dichotomy people argue about?
+Justice & Fairness | What's the difference between fairness and equality?
+Values & Priorities | What's something you claim to care about but don't act on?
+Identity & Self | What story do you tell yourself about yourself?
+Decision-Making | What's the most expensive mistake you've learned from?
+Changing Your Mind | What evidence would change your mind on a core belief?
+Values & Priorities | What's more important: freedom or security?
+Ethics & Morality | What do you owe to people you'll never meet?
+Trade-offs & Paradoxes | What strength becomes a weakness in excess?
+Comparative Analysis | What's the difference between intelligence and wisdom?
+Society & Culture | What's the worst thing about the time period you live in?
+Comparative Analysis | What inefficiency is actually valuable?
+Self-Analysis | What compliment do you reject that might actually be true?
+Attention & Focus | How has your attention span changed?
+Meta-Questions | What nuance gets lost in public discourse?
+Personal Experience | What success taught you less than a failure?
+Personal Philosophy | When do you break your own rules?
+Society & Culture | What should be socially acceptable that isn't?
+Relationships & Community | What makes someone trustworthy?
+Self-Analysis | When do you feel like an imposter?
+Attention & Focus | When should you deep focus vs. stay broadly aware?
+Ethics & Morality | How many people would need to benefit to justify one person's suffering?
+Personal Experience | What do you know now that you wish you'd known earlier?
+Work & Career | What's the most important thing they don't teach in your field?
+Risk & Uncertainty | How do you make decisions with incomplete information?
+Attention & Focus | What consistently distracts you from what matters?
+Society & Culture | What cultural change has made society worse?
+Comparative Analysis | What's better now than 20 years ago that no one acknowledges?
+Risk & Uncertainty | What's the difference between risk and uncertainty?
+Identity & Self | When is self-awareness counterproductive?
+Personal Philosophy | How do you decide what deserves your attention?
+Ethics & Morality | When is pragmatism immoral?
+Work & Career | What makes someone actually good at their job vs. appearing good?
+Power & Influence | How do you hold powerful people accountable?
+Resource Allocation | What gets too much attention relative to its importance?
+Contrarian Thinking | What obvious solution are we overlooking?
+Personal Experience | What's the hardest lesson you've learned?
+Personal Philosophy | What's worth suffering for?
+Conflict Resolution | What makes an argument productive vs. destructive?
+Relationships & Community | How do you know when to forgive?
+Personal Experience | What did you think would make you happy that didn't?
+Personal Philosophy | What makes something 'your responsibility'?
+Changing Your Mind | Describe a time you were completely wrong about someone.
+Health & Mortality | When should you trust your body vs. ignore it?
+Decision-Making | What's the worst advice you've followed?
+Justice & Fairness | What injustice do people accept too easily?
+Work & Career | What do successful people do that they don't talk about?
+Meta-Questions | What question do you avoid asking yourself?
+Resource Allocation | What deserves more research funding?
+Changing Your Mind | What fact or statistic most changed your worldview?
+Contrarian Thinking | What problem would disappear if we just stopped talking about it?
+Technology & Progress | What should humans do that machines shouldn't?
+Conflict Resolution | How do you resolve a conflict where both sides are right?
+Identity & Self | What parts of your identity are chosen vs. given?
+Meta-Questions | What question should people ask themselves more often?
+Technology & Progress | What old problem has technology made worse?
+Self-Analysis | What personality trait causes you the most problems?
+Trade-offs & Paradoxes | When is good enough better than perfect?
+Contrarian Thinking | What does everyone know that isn't true?
+Society & Culture | What widely accepted practice is actually harmful?
+Personal Experience | What belief has experience contradicted?
+Health & Mortality | What's worth sacrificing health for?
+Technology & Progress | What data should never be collected?
+Changing Your Mind | What made you question something you were taught as a child?
+Self-Analysis | What do you judge others for that you're guilty of yourself?
+Personal Experience | What's the most valuable thing you learned outside school?
+Society & Culture | What's normalized that shouldn't be?
+Risk & Uncertainty | What calculated risk paid off for you?
+Health & Mortality | What legacy do you want to leave?
+Justice & Fairness | What's the difference between deserving and needing?
+Ethics & Morality | When is lying the right choice?
+Self-Analysis | What's a hard truth about yourself you've recently accepted?
+Changing Your Mind | When did you realize you were the bad guy in someone's story?
+Contrarian Thinking | What's getting better that everyone thinks is getting worse?
+Risk & Uncertainty | When is playing it safe the riskiest choice?
+Technology & Progress | What should we stop trying to automate?
+Systems Thinking | What competition creates worse outcomes than cooperation would?
+Technology & Progress | What technology makes you genuinely uneasy?
+Ethics & Morality | Is it worse to do harm or to allow harm to happen?
+Health & Mortality | What health advice is everyone ignoring?
+Historical Analysis | When did society make the wrong turn on a major issue?
+Society & Culture | What's considered polite that shouldn't be?
+Changing Your Mind | When was the last time you changed your mind about a political issue?
+Systems Thinking | What intervention would have the highest leverage?
+Risk & Uncertainty | What risk do most people underestimate?
+Health & Mortality | What would you do differently if you knew you had 5 years to live?
+Ethics & Morality | What's the difference between justice and revenge?
+Power & Influence | What gives someone power that isn't obvious?
+Trade-offs & Paradoxes | What's a necessary evil in your field?
+Health & Mortality | How has your relationship with your body changed?
+Justice & Fairness | When is punishment ineffective?
+Ethics & Morality | What moral rule has an exception for you?
+Historical Analysis | Which historical figure's reputation is undeserved?
+Technology & Progress | What low-tech solution is better than high-tech alternatives?
+Health & Mortality | How should we treat the terminally ill?
+Technology & Progress | What technology do we need less of, not more?
+Power & Influence | What's the difference between leadership and management?
+Ethics & Morality | What's something illegal that should be legal?
+Personal Experience | What experience changed your priorities?
+Meta-Questions | What question matters more than people realize?
+Justice & Fairness | What's fair in theory but unfair in practice?
+Self-Analysis | What's your greatest strength that's also your greatest weakness?
+Meta-Questions | What question becomes less answerable the more you learn?
+Power & Influence | When does having power corrupt judgment?
+Ethics & Morality | What's something legal that should be illegal?
+Trade-offs & Paradoxes | When does solving one problem create a bigger one?
+Society & Culture | What controversial opinion do you hold that you can't say at work?
+Risk & Uncertainty | What do you wish you'd been more afraid of?
+Contrarian Thinking | What conventional wisdom needs questioning?
+Trade-offs & Paradoxes | What improves with constraints?
+Personal Experience | What random event had the biggest impact on your life?
+Meta-Questions | What discussion is society not ready to have?
+Meta-Questions | What question has no good answer?
+Technology & Progress | When is 'progress' actually regression?
+Personal Experience | What discomfort are you grateful you endured?
+Contrarian Thinking | What unpopular policy would actually work?
+Power & Influence | When should you use your influence?
+Identity & Self | How have you changed in ways you didn't expect?
+Historical Analysis | What modern problem has an ancient precedent?
+Trade-offs & Paradoxes | When is the best option not the optimal one?
+Personal Experience | What comfort zone expansion changed you?
+Society & Culture | What tradition continues purely out of inertia?
+Technology & Progress | When does convenience become detrimental?
+Contrarian Thinking | What consensus view is probably wrong?
+Systems Thinking | What problem can't be solved by the system that created it?
+Changing Your Mind | What is the most significant thing you have changed your mind about in the past 12 months?
+Trade-offs & Paradoxes | What trade-off do people not realize they're making?
+Power & Influence | What's the difference between persuasion and manipulation?
+Contrarian Thinking | What trade-off is worth it that most people reject?
+Self-Analysis | What pattern do you keep repeating?
+Systems Thinking | What problem is downstream from another problem?
+Historical Analysis | What historical trend reversed that people didn't expect?
+Contrarian Thinking | What's the most overrated virtue?
+Meta-Questions | What's the most important unanswered question?
+Health & Mortality | How do you think about death?
+Ethics & Morality | What moral principle do most people claim but don't follow?
+Changing Your Mind | What belief did you hold at age 20 that you now find embarrassing?
+Systems Thinking | What second-order effect do people miss?
+Meta-Questions | What assumption underlies most disagreements?
+Personal Experience | What conversation do you think about years later?
+Ethics & Morality | What's your line that others cross easily?
+Trade-offs & Paradoxes | When does more choice make things worse?
+Meta-Questions | What's a better way to frame a common debate?
+Conflict Resolution | How do you know when you're wrong in an argument?
+Society & Culture | What social problem could be solved but isn't because it's profitable?
+Systems Thinking | What externality should be priced in?
+Historical Analysis | What lesson from history keeps being ignored?
+Contrarian Thinking | What problem exists because we're trying to solve it?
+Systems Thinking | What rule creates the opposite of its intended effect?
+Historical Analysis | What historical event is widely misunderstood?
+Personal Experience | What life event divided your life into 'before' and 'after'?
+Identity & Self | When does your identity limit you?
+Risk & Uncertainty | When should you trust expert predictions?
+Technology & Progress | How has technology changed you for the worse?
+Identity & Self | What do you want to be known for?
+Systems Thinking | What metric ruins what it measures?
+Society & Culture | What's taboo that shouldn't be?
+Conflict Resolution | When should you argue vs. walk away?
+Justice & Fairness | When is unequal treatment actually fair?
+Technology & Progress | What have we lost by being constantly connected?
+Changing Your Mind | What's an opinion you publicly defended that you privately doubted?
+Risk & Uncertainty | What risk do most people overestimate?
+Systems Thinking | What feedback loop is spiraling in the wrong direction?
+Identity & Self | How much should you try to change yourself?
+Systems Thinking | What perverse incentive shapes your industry?`;
 
         // Parse the data into usable format
         const prompts = promptData
@@ -497,14 +533,14 @@ Power & Influence | What question matters more than people realize?
         function showPrompt(index) {
             currentIndex = index;
             const prompt = prompts[index];
-
-            document.getElementById('date').textContent = new Date().toLocaleDateString('en-US', {
-                weekday: 'long',
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
+            
+            document.getElementById('date').textContent = new Date().toLocaleDateString('en-US', { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
             });
-
+            
             document.getElementById('promptNumber').textContent = `Prompt ${index + 1} of ${prompts.length}`;
             document.getElementById('category').textContent = prompt.category;
             document.getElementById('prompt').textContent = prompt.text;
@@ -517,7 +553,7 @@ Power & Influence | What question matters more than people realize?
                 notification.className = 'copied';
                 notification.textContent = '✓ Copied to clipboard';
                 document.body.appendChild(notification);
-
+                
                 setTimeout(() => {
                     notification.remove();
                 }, 2000);
