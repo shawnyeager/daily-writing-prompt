@@ -12,12 +12,28 @@ A single-file HTML app that provides one thought-provoking writing prompt each d
 - **Navigation controls** - Browse forward, back, or random
 - **Categories** - Prompts organized by theme (Predictions, Ethics, Systems Thinking, etc.)
 
-## Installation
+## How to Download and Use
 
-1. Download `daily-prompt.html`
-2. Save it anywhere on your computer
-3. Open it in any web browser
-4. Bookmark it for easy daily access
+### Step 1: Download the File
+1. **Click this link**: [daily-prompt.html](https://raw.githubusercontent.com/shawnyeager/daily-writing-prompt/master/daily-prompt.html)
+2. **Save the file**: Your browser will either download it automatically or ask where to save it
+   - Choose a location you'll remember (like Desktop or Documents)
+   - Make sure it saves as `daily-prompt.html` (not `.txt`)
+
+### Step 2: Open the App
+1. **Find the downloaded file** on your computer
+2. **Double-click** `daily-prompt.html` to open it in your web browser
+3. **Bookmark it** for easy access each day
+
+### Alternative Download Method
+If the direct link doesn't work:
+1. Go to the [project page](https://github.com/shawnyeager/daily-writing-prompt)
+2. Click on `daily-prompt.html`
+3. Click the "Raw" button
+4. Right-click on the page and select "Save As..."
+5. Save the file to your computer
+
+**That's it!** The app works completely offline - no internet needed after downloading.
 
 ## Usage
 
