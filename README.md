@@ -77,6 +77,41 @@ Open the page daily to see today's prompt. Use the buttons to navigate between p
 - Justice & Fairness
 - Attention & Focus
 
+## Prompt Distribution Algorithm
+
+Version 1.1 introduces an intelligent prompt distribution system designed to optimize your daily writing experience. The distribution algorithm ensures:
+
+### Key Features
+- **No category clustering**: Prevents consecutive prompts from the same category
+- **Cognitive rhythm**: Balances mental load throughout the week
+- **Weekly pattern**: Lighter topics on Mondays/Fridays, deeper thinking mid-week
+- **Optimal spacing**: Heavy topics (mortality, ethics) are appropriately distributed
+- **Complete coverage**: All original prompts maintained, just intelligently reordered
+
+### Cognitive Intensity Levels
+- **Light**: Predictions, Innovation, Learning, Communication
+- **Medium**: Philosophy, Decision-Making, Career, Relationships, Economics
+- **Heavy**: Self-Analysis, Ethics, Systems Thinking, Identity, Mortality
+
+### Weekly Distribution Pattern
+- **Monday**: Light (energizing start)
+- **Tuesday**: Medium (practical topics)
+- **Wednesday**: Heavy (deep thinking mid-week)
+- **Thursday**: Medium (practical/relational)
+- **Friday**: Light (lighter end to work week)
+- **Saturday**: Light (weekend reflection)
+- **Sunday**: Medium (moderate preparation for week)
+
+### Using the Distribution Script
+The `scripts/distribute_prompts.py` tool can redistribute any prompt collection:
+
+```bash
+# Redistribute prompts for optimal daily variety
+python3 scripts/distribute_prompts.py input_prompts.txt output_prompts.txt
+```
+
+Input format: `Category | Prompt text` (one per line)
+
 ## Customization
 
 All prompts are stored in a simple format inside the HTML file. To edit:
@@ -93,6 +128,8 @@ Your Category | Your prompt here?
 Another Category | Another prompt here?
 `;
 ```
+
+For large collections, use the distribution script to optimize the order before embedding in the HTML file.
 
 ## Philosophy
 
