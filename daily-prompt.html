@@ -32,39 +32,35 @@
         }
         
         .date {
-            color: #667eea;
-            font-size: 14px;
-            font-weight: 600;
+            color: #5568d3;
+            font-size: 15px;
+            font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-bottom: 10px;
-        }
-        
-        .prompt-number {
-            color: #999;
-            font-size: 13px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         
         .prompt {
             font-size: 24px;
-            line-height: 1.5;
+            line-height: 1.4;
             color: #2d3748;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             font-weight: 500;
+            min-height: 2.8em;
+            display: flex;
+            align-items: center;
         }
-        
+
         .category {
-            display: inline-block;
-            background: #f7fafc;
             color: #667eea;
-            padding: 6px 12px;
-            border-radius: 6px;
             font-size: 12px;
-            font-weight: 600;
+            font-weight: 500;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            margin-bottom: 30px;
+            opacity: 0.7;
         }
         
         .buttons {
@@ -131,15 +127,17 @@
 </head>
 <body>
     <div class="container">
-        <div class="date" id="date"></div>
-        <div class="prompt-number" id="promptNumber"></div>
-        <div class="category" id="category"></div>
+        <div class="date">
+            <span id="dateText"></span>
+            <span class="category" id="category"></span>
+        </div>
         <div class="prompt" id="prompt"></div>
         <div class="buttons">
             <button onclick="copyPrompt()">Copy to Clipboard</button>
-            <button class="secondary" onclick="previousPrompt()">← Previous</button>
-            <button class="secondary" onclick="nextPrompt()">Next →</button>
+            <button class="secondary" onclick="previousPrompt()">◀</button>
+            <button class="secondary" onclick="nextPrompt()">▶</button>
             <button class="secondary" onclick="randomPrompt()">Random</button>
+            <button class="secondary" id="todayButton" onclick="goToToday()" style="display: none;">Today</button>
         </div>
     </div>
 
@@ -534,17 +532,32 @@ Systems Thinking | What perverse incentive shapes your industry?`;
         function showPrompt(index) {
             currentIndex = index;
             const prompt = prompts[index];
-            
-            document.getElementById('date').textContent = new Date().toLocaleDateString('en-US', { 
-                weekday: 'long', 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric' 
+
+            // Calculate the date for this prompt index
+            const now = new Date();
+            const startOfYear = new Date(now.getFullYear(), 0, 1);
+            const promptDate = new Date(startOfYear.getTime() + (index * 24 * 60 * 60 * 1000));
+
+            document.getElementById('dateText').textContent = promptDate.toLocaleDateString('en-US', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
             });
-            
-            document.getElementById('promptNumber').textContent = `Prompt ${index + 1} of ${prompts.length}`;
-            document.getElementById('category').textContent = prompt.category;
+
+            document.getElementById('category').textContent = `${prompt.category} • ${index + 1} of ${prompts.length}`;
             document.getElementById('prompt').textContent = prompt.text;
+
+            // Show/hide Today button based on whether we're viewing today's prompt
+            const dayOfYear = getDayOfYear();
+            const todayIndex = (dayOfYear - 1) % prompts.length;
+            const todayButton = document.getElementById('todayButton');
+
+            if (index === todayIndex) {
+                todayButton.style.display = 'none';
+            } else {
+                todayButton.style.display = 'inline-block';
+            }
         }
 
         function copyPrompt() {
@@ -574,6 +587,12 @@ Systems Thinking | What perverse incentive shapes your industry?`;
         function randomPrompt() {
             currentIndex = Math.floor(Math.random() * prompts.length);
             showPrompt(currentIndex);
+        }
+
+        function goToToday() {
+            const dayOfYear = getDayOfYear();
+            const todayIndex = (dayOfYear - 1) % prompts.length;
+            showPrompt(todayIndex);
         }
 
         // Initialize with today's prompt
