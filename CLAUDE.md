@@ -51,3 +51,4 @@ daily-writing-prompt/
 
 ## No Build Process
 This project intentionally has no build tools, package.json, or external dependencies. It's designed to be a simple, portable HTML file that works in any modern browser.
+- Do not push a commit without asking about bumping the release number
