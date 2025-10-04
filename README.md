@@ -1,4 +1,4 @@
-# Daily Writing Prompts
+# Daily Writing Prompt
 
 A single-file HTML app that provides one thought-provoking writing prompt each day. Designed for reflective, analytical, non-fiction writing practice.
 
