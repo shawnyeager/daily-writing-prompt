@@ -6,7 +6,7 @@ A single-file HTML app that provides one thought-provoking writing prompt each d
 
 ## Features
 
-- **365 unique prompts** - Exactly one for every day of the year
+- **365 unique prompts** - One for every day of the year
 - **Automatic daily rotation** - Shows today's prompt based on day of year
 - **Works offline** - No internet connection required
 - **Zero dependencies** - Pure HTML/CSS/JavaScript
