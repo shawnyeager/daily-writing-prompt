@@ -79,7 +79,7 @@ Open the page daily to see today's prompt. Use the buttons to navigate between p
 
 ## Prompt Distribution Algorithm
 
-Version 1.1 introduces an intelligent prompt distribution system designed to optimize your daily writing experience. The distribution algorithm ensures:
+Version 1.1 introduces an intelligent prompt distribution system designed to optimize your daily writing experience. The distribution algorithm ensures optimal variety and cognitive balance across your writing practice.
 
 ### Key Features
 - **No category clustering**: Prevents consecutive prompts from the same category
