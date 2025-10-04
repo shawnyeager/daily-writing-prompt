@@ -2,6 +2,8 @@
 
 A single-file HTML app that provides one thought-provoking writing prompt each day. Designed for reflective, analytical, non-fiction writing practice.
 
+![Daily Writing Prompt Screenshot](screenshot.png)
+
 ## Features
 
 - **365 unique prompts** - One for every day of the year
