@@ -9,39 +9,37 @@ const Index = () => {
   });
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 py-8 px-4">
-      <div className="container mx-auto max-w-4xl">
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold mb-4 text-slate-900 dark:text-slate-100">
+    <div className="min-h-screen bg-[#1a1a1a] py-8 px-4">
+      <div className="container mx-auto max-w-6xl">
+        <div className="text-center mb-12">
+          <h1 className="text-5xl font-bold mb-4 text-white">
             Daily Writing Prompts
           </h1>
-          <p className="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-300 max-w-2xl mx-auto leading-relaxed">
             365 thought-provoking questions for analytical and reflective writing.
-            Each prompt is designed to explore ideas, beliefs, systems thinking, and ethical reasoning.
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-4 gap-6 mb-8">
-          <div className="lg:col-span-3">
+        <div className="grid lg:grid-cols-[1fr_300px] gap-6 mb-8 items-start">
+          <div>
             <PromptDisplay />
           </div>
-          <div className="lg:col-span-1">
+          <div className="lg:sticky lg:top-8">
             <StreakDisplay />
           </div>
         </div>
 
-        <footer className="text-center text-sm text-slate-500 dark:text-slate-400">
+        <footer className="text-center text-sm text-gray-500 mt-12">
           <p>
             Built with{' '}
             <a
               href="https://soapbox.pub/mkstack"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-blue-600 dark:text-blue-400 hover:underline"
+              className="text-blue-400 hover:text-blue-300 transition-colors"
             >
               MKStack
             </a>
-            {' '}• Perfect for daily reflection and analytical writing practice
           </p>
         </footer>
       </div>

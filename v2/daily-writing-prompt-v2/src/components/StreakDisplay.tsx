@@ -112,20 +112,20 @@ export function StreakDisplay({ className }: StreakDisplayProps) {
   ];
 
   return (
-    <Card className={`${className || ''}`}>
-      <CardHeader className="pb-3">
-        <CardTitle className="text-lg flex items-center gap-2">
-          <Flame className="h-5 w-5 text-orange-500" />
+    <Card className={`bg-[#2a2a2a] border-gray-700 ${className || ''}`}>
+      <CardHeader className="pb-3 border-b border-gray-700">
+        <CardTitle className="text-lg flex items-center gap-2 text-white">
+          <Flame className="h-5 w-5 text-orange-400" />
           Writing Streak
         </CardTitle>
       </CardHeader>
 
-      <CardContent className="space-y-4">
+      <CardContent className="space-y-4 pt-4">
         <div className="text-center">
-          <div className={`text-2xl font-bold ${color}`}>
+          <div className={`text-xl font-bold ${color}`}>
             {status}
           </div>
-          <p className="text-sm text-muted-foreground mt-1">
+          <p className="text-sm text-gray-400 mt-1">
             {description}
           </p>
         </div>
@@ -136,13 +136,13 @@ export function StreakDisplay({ className }: StreakDisplayProps) {
             return (
               <div
                 key={index}
-                className="text-center p-3 bg-slate-50 dark:bg-slate-800 rounded-lg"
+                className="text-center p-3 bg-gray-800/50 border border-gray-700 rounded-lg"
               >
                 <Icon className={`h-4 w-4 mx-auto mb-1 ${stat.color}`} />
-                <div className="text-lg font-semibold">
+                <div className="text-lg font-semibold text-white">
                   {stat.value}
                 </div>
-                <div className="text-xs text-muted-foreground">
+                <div className="text-xs text-gray-400">
                   {stat.suffix && `${stat.suffix} • `}{stat.label}
                 </div>
               </div>
@@ -152,12 +152,9 @@ export function StreakDisplay({ className }: StreakDisplayProps) {
 
         {streak.currentStreak > 0 && (
           <div className="text-center">
-            <Badge
-              variant="secondary"
-              className="bg-gradient-to-r from-orange-100 to-red-100 dark:from-orange-900/20 dark:to-red-900/20"
-            >
+            <span className="inline-block text-sm bg-gradient-to-r from-orange-900/40 to-red-900/40 text-orange-300 border border-orange-700 px-3 py-1 rounded-full">
               🔥 {streak.currentStreak} day{streak.currentStreak !== 1 ? 's' : ''} strong!
-            </Badge>
+            </span>
           </div>
         )}
       </CardContent>

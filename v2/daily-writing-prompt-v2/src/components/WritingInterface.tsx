@@ -67,9 +67,12 @@ export function WritingInterface({ prompt, date, className }: WritingInterfacePr
 
       saveResponse(responseData);
 
-      // Reload the saved response
+      // Reload the saved response and update the text field to match exactly
       const updated = getResponseForPrompt(prompt.id, date);
       setSavedResponse(updated);
+      if (updated) {
+        setResponse(updated.response);
+      }
       setIsEditing(false);
 
       toast({
@@ -105,6 +108,10 @@ export function WritingInterface({ prompt, date, className }: WritingInterfacePr
   const handleDelete = useCallback(() => {
     if (!savedResponse) return;
 
+    if (!window.confirm('Are you sure you want to delete this response? This action cannot be undone.')) {
+      return;
+    }
+
     deleteResponse(prompt.id, date);
     setSavedResponse(null);
     setResponse('');
@@ -118,52 +125,62 @@ export function WritingInterface({ prompt, date, className }: WritingInterfacePr
   }, [savedResponse, prompt.id, date, toast]);
 
   const formatDate = (dateStr: string) => {
-    return new Date(dateStr).toLocaleDateString('en-US', {
+    // Parse the date string to avoid timezone issues
+    const [year, month, day] = dateStr.split('-').map(Number);
+    const dateObj = new Date(year, month - 1, day);
+    return dateObj.toLocaleDateString('en-US', {
       weekday: 'long',
-      year: 'numeric',
       month: 'long',
-      day: 'numeric'
+      day: 'numeric',
+      year: 'numeric'
     });
   };
 
   return (
-    <Card className={`w-full ${className || ''}`}>
-      <CardHeader>
-        <div className="flex items-start justify-between">
-          <div>
-            <CardTitle className="text-lg">
-              <FileText className="inline-block h-5 w-5 mr-2" />
-              Your Response
-            </CardTitle>
-            <p className="text-sm text-muted-foreground mt-1">
-              {formatDate(date)}
-            </p>
+    <Card className={`w-full bg-[#2a2a2a] border-gray-700 ${className || ''}`}>
+      <CardHeader className="border-b border-gray-700">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <FileText className="h-5 w-5 text-blue-400" />
+            <div>
+              <CardTitle className="text-lg text-white font-medium">
+                Your Response
+              </CardTitle>
+              <p className="text-sm text-gray-400 mt-0.5">
+                {formatDate(date)}
+              </p>
+            </div>
           </div>
           <div className="flex items-center gap-2">
-            {savedResponse && (
-              <Badge variant="secondary">
-                Saved • {savedResponse.wordCount} words
-              </Badge>
+            {savedResponse && !hasChanges && (
+              <span className="text-sm text-green-400 bg-green-900/20 px-3 py-1 rounded-full border border-green-700">
+                Saved
+              </span>
             )}
-            <Badge variant="outline">
+            {hasChanges && (
+              <span className="text-sm text-orange-400 bg-orange-900/20 px-3 py-1 rounded-full border border-orange-700">
+                Unsaved
+              </span>
+            )}
+            <span className="text-sm text-gray-300 bg-gray-800 px-3 py-1 rounded-full border border-gray-600">
               {wordCount} words
-            </Badge>
+            </span>
           </div>
         </div>
       </CardHeader>
 
-      <CardContent className="space-y-4">
+      <CardContent className="space-y-4 pt-6">
         <div className="space-y-2">
           <Textarea
             value={response}
             onChange={(e) => setResponse(e.target.value)}
             placeholder={`Write your thoughts about: "${prompt.text}"`}
-            className="min-h-[200px] resize-y"
+            className="min-h-[200px] resize-y bg-gray-800 border-gray-600 text-white placeholder:text-gray-500 focus:border-blue-500 focus:ring-blue-500"
             disabled={!isEditing && !!savedResponse}
           />
 
           {wordCount > 0 && (
-            <p className="text-xs text-muted-foreground">
+            <p className="text-xs text-gray-400">
               {wordCount} {wordCount === 1 ? 'word' : 'words'}
               {hasChanges && ' • Unsaved changes'}
             </p>
@@ -177,7 +194,7 @@ export function WritingInterface({ prompt, date, className }: WritingInterfacePr
                 <Button
                   onClick={handleSave}
                   disabled={isSaving || !response.trim()}
-                  className="flex items-center gap-2"
+                  className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white"
                 >
                   <Save className="h-4 w-4" />
                   {isSaving ? 'Saving...' : 'Save Response'}
@@ -188,6 +205,7 @@ export function WritingInterface({ prompt, date, className }: WritingInterfacePr
                     variant="outline"
                     onClick={handleCancel}
                     disabled={isSaving}
+                    className="bg-gray-800 border-gray-600 text-gray-200 hover:bg-gray-700"
                   >
                     Cancel
                   </Button>
@@ -197,7 +215,7 @@ export function WritingInterface({ prompt, date, className }: WritingInterfacePr
               <Button
                 variant="outline"
                 onClick={handleEdit}
-                className="flex items-center gap-2"
+                className="flex items-center gap-2 bg-gray-800 border-gray-600 text-gray-200 hover:bg-gray-700"
               >
                 <FileText className="h-4 w-4" />
                 Edit Response
@@ -210,7 +228,7 @@ export function WritingInterface({ prompt, date, className }: WritingInterfacePr
               variant="destructive"
               size="sm"
               onClick={handleDelete}
-              className="flex items-center gap-2"
+              className="flex items-center gap-2 bg-red-900/40 hover:bg-red-900/60 border-red-800"
             >
               <Trash2 className="h-4 w-4" />
               Delete
@@ -219,7 +237,7 @@ export function WritingInterface({ prompt, date, className }: WritingInterfacePr
         </div>
 
         {savedResponse && !isEditing && (
-          <div className="text-xs text-muted-foreground pt-2 border-t">
+          <div className="text-xs text-gray-500 pt-2 border-t border-gray-700">
             <p>
               Created: {new Date(savedResponse.createdAt).toLocaleString()}
               {savedResponse.updatedAt !== savedResponse.createdAt && (
