@@ -1,9 +1,9 @@
 name: Deploy to GitHub Pages
 
 on:
-  # Runs on pushes targeting the default branch
+  # Runs on pushes targeting the v2 development branch
   push:
-    branches: ["main"]
+    branches: ["v2-mkstack-development"]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -36,12 +36,13 @@ jobs:
         with:
           node-version: "22"
           cache: npm
+          cache-dependency-path: v2/daily-writing-prompt-v2/package-lock.json
 
       - name: Install dependencies and build
         run: |
+          cd v2/daily-writing-prompt-v2
           npm install
           npm run build
-          cp dist/index.html dist/404.html
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
@@ -49,7 +50,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
+          path: v2/daily-writing-prompt-v2/dist
 
       - name: Deploy to GitHub Pages
         id: deployment
