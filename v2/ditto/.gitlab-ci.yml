@@ -1,0 +1,31 @@
+image: denoland/deno:2.2.2
+
+default:
+  interruptible: true
+
+stages:
+  - test
+
+test:
+  stage: test
+  timeout: 2 minutes
+  script:
+    - deno fmt --check
+    - deno task lint
+    - deno task check
+    - deno task test --ignore=packages/transcode --coverage=cov_profile
+    - deno coverage cov_profile
+  coverage: /All files[^\|]*\|[^\|]*\s+([\d\.]+)/
+  services:
+    - postgres:16
+  variables:
+    DITTO_NSEC: nsec1zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zygs4rm7hz
+    DATABASE_URL: postgres://postgres:postgres@postgres:5432/postgres
+    POSTGRES_HOST_AUTH_METHOD: trust
+    RUST_BACKTRACE: 1
+  artifacts:
+    when: always
+    paths:
+      - deno-test.xml
+    reports:
+      junit: deno-test.xml
